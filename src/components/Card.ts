@@ -73,13 +73,16 @@ export class Card extends Component<ICardProduct> {
 		}
 	}
 
-	set category(value: string) {
-		const categoryClass = productCategory[value];
-		if (categoryClass) {
-			this._category.classList.add(categoryClass);
-		}
-		this.setText(this._category, value);
-	}
+set category(value: string) {
+    const categoryClass = productCategory[value];
+    if (categoryClass) {
+        Object.values(productCategory).forEach(cls => {
+            this._category.classList.remove(cls);
+        });
+        this._category.className = `${this.blockName}__category ${categoryClass}`;
+    }
+    this.setText(this._category, value);
+}
 
 	get category(): string {
 		return this._category.textContent || '';
